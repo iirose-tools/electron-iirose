@@ -1,0 +1,39 @@
+{
+  "name": "IIROSE",
+  "version": "0.0.1",
+  "description": "IIROSE",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --debug",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "productName":"Electron-IIROSE",
+    "appId": "com.iirose.electron",
+    "copyright":"Theresa",
+    "directories": {
+      "output": "build"
+    },
+    "win": {
+		  "target": [
+		    {
+		      "target": "nsis"
+		    }
+		  ]
+		},
+		"nsis": {
+			"oneClick": false,
+			"allowElevation": true,
+			"allowToChangeInstallationDirectory": true,
+			"createDesktopShortcut": true,
+			"createStartMenuShortcut": true
+		}
+  },
+  "keywords": [],
+  "author": "Theresa",
+  "devDependencies": {
+    "electron": "^4.1.0"
+  }
+}

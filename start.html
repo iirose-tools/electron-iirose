@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>IIROSE For PC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./mdui/css/mdui.min.css">
+    <script src="./mdui/js/mdui.min.js"></script>
+    <script src="./start.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+            margin: 0px;
+            padding: 0px;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        #menu{
+            height: 64px;
+        }
+
+        iframe{
+            width: 100%;
+            height: 716px;
+            -ms-zoom: 1.2;
+        }
+
+        .menu {
+            -webkit-app-region: drag;
+        }
+
+        .menu button {
+            -webkit-app-region: no-drag;
+        }
+    </style>
+    <div class="mdui-appbar menu mdui-shadow-3" id="menu">
+        <div class="mdui-toolbar mdui-color-indigo">
+            <button class="mdui-btn mdui-btn-icon" mdui-menu="{target: '#window-menu'}"><i class="mdui-icon material-icons">menu</i></button>
+            <p href="javascript:;" class="mdui-typo-headline">IIROSE</p>
+            <p class="mdui-typo-title" id="system-type">for PC</p>
+
+            <!-- 菜单 -->
+            <ul class="mdui-menu mdui-menu-cascade" id="window-menu">
+                <li class="mdui-menu-item">
+                    <a href="javascript:min()" class="mdui-ripple">最小化</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="javascript:close();" class="mdui-ripple">退出</a>
+                </li>
+                <li class="mdui-divider"></li>
+                <li class="mdui-menu-item">
+                    <a href="javascript:about();">关于</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <iframe src="https://iirose.com/" frameborder="0" id="iframe"></iframe>
+</body>
+
+</html>
