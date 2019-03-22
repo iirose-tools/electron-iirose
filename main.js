@@ -8,15 +8,6 @@ ipc.on('system-type', function(event, data){
 
 let startWindow;
 
-let appIcon = new Tray(path.normalize(__dirname + '/image/icon.png'));
-let contextMenu = Menu.buildFromTemplate([
-  { label: '退出', type: 'radio' },
-  { label: '最大化', type: 'radio' },
-  { label: '菜单三', type: 'radio', checked: true },
-  { label: '关于', type: 'radio' }
-]);
-appIcon.setContextMenu(contextMenu);
-
 function start(){
 	startWindow = new BrowserWindow({
 		width: 800,
