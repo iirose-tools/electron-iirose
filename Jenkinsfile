@@ -4,10 +4,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'electron-builder -wl --ai32 deb tar.gz'
+                sh 'electron-builder -l tar.gz'
+                sh 'electron-builder -w'
+                sh 'zip -r ./windows.zip ./build/win-unpacked'
                 archiveArtifacts artifacts: './build/*.tar.gz', fingerprint: true
-                archiveArtifacts artifacts: './build/*.deb', fingerprint: true
-                archiveArtifacts artifacts: './build/*.exe', fingerprint: true
+                archiveArtifacts artifacts: './windows.zip', fingerprint: true
             }
         }
     }
