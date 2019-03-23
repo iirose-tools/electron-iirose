@@ -16,13 +16,11 @@
         body {
             margin: 0px;
             padding: 0px;
-            border-radius: 5px;
             overflow: hidden;
         }
-        
-        iframe{
+
+        iframe {
             width: 100%;
-            height: 605px;
         }
 
         .menu {
@@ -31,6 +29,27 @@
 
         .menu button {
             -webkit-app-region: no-drag;
+        }
+
+        .menu a {
+            -webkit-app-region: no-drag;
+        }
+
+        .tabs{
+            width: 70%;
+            margin-left: 15%;
+            margin-right: 15%;
+            padding-top: 20px;
+            padding-left: 15px;
+            padding-right: 15px;
+            padding-bottom: 20px;
+            border-radius: 5px;
+        }
+
+        #iirose{
+            width: 100% !important;
+            margin: 0px !important;
+            padding: 0px !important;
         }
     </style>
     <div class="mdui-appbar menu mdui-shadow-3" id="menu">
@@ -53,8 +72,45 @@
                 </li>
             </ul>
         </div>
+        <div class="mdui-tab mdui-tab-centered mdui-color-indigo" mdui-tab>
+            <a href="#iirose" class="mdui-ripple">IIROSE</a>
+            <a href="#setting" class="mdui-ripple">设置</a>
+            <a href="#functions" class="mdui-ripple">功能</a>
+            <a href="#about" class="mdui-ripple">关于</a>
+        </div>
     </div>
-    <iframe src="https://iirose.com/" frameborder="0" id="iframe"></iframe>
+    <div id="iirose" class="mdui-p-a-2">
+        <iframe src="https://iirose.com/" frameborder="0" id="iframe"></iframe>
+    </div>
+    <div id="setting" class="mdui-p-a-2">
+        <div class="tabs mdui-shadow-1 mdui-hoverable mdui-typo">
+            <h1>窗口设置</h1>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">窗口宽度</label>
+                <input class="mdui-textfield-input" type="text" id="config-w" />
+            </div>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">窗口高度</label>
+                <input class="mdui-textfield-input" type="text" id="config-h" />
+            </div>
+            <button onclick="saveConfig()" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-center">确定</button>
+        </div>
+    </div>
+    <div id="functions" class="mdui-p-a-2">
+        <div class="tabs mdui-shadow-1 mdui-hoverable mdui-typo">
+            <h1>IIROSE</h1>
+            <div class="mdui-textfield mdui-textfield-floating-label">
+                <label class="mdui-textfield-label">歌名</label>
+                <input class="mdui-textfield-input" type="text" id="fun-songName" />
+            </div>
+        </div>
+    </div>
+    <div id="about" class="mdui-p-a-2 mdui-typo">
+        <ul>
+            <li>GitHub: iirose-tools/electron-iirose</li>
+            <li>Version: 0.0.2</li>
+        </ul>
+    </div>
 </body>
 
 </html>
