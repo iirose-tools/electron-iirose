@@ -5,7 +5,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'electron-builder -wl tar.gz'
-                archiveArtifacts artifacts: './build/*.tar.gz', fingerprint: true
+                archiveArtifacts artifacts: 'build/*.tar.gz', fingerprint: true
+                archiveArtifacts artifacts: 'build/.exe', fingerprint: true
             }
         }
     }
