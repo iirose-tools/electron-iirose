@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'master' }
+    agent { label 'Theresa Japan Server' }
 
     stages {
         stage('Build') {
