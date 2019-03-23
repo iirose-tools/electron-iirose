@@ -37,18 +37,11 @@
         },
 		{
 		  "target": "tar.gz"
+		},
+		{
+		  "target": "deb"
 		}
       ]
-    },
-    "mac": {
-      "target": [
-        {
-          "target": "pkg"
-        }
-      ]
-    },
-    "dmg": {
-      "title": "${productName} ${version} for Mac"
     }
   },
   "keywords": [],
