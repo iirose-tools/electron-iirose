@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'electron-builder'
+                sh 'electron-builder -mlw'
             }
          }
     }

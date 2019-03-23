@@ -30,6 +30,7 @@
       "createStartMenuShortcut": true
     },
     "linux": {
+	  "category": "Utility",
       "target": [
         {
           "target": "AppImage"
