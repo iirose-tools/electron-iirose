@@ -5,9 +5,7 @@
   "main": "main.js",
   "scripts": {
     "start": "electron .",
-    "dev": "electron . --debug",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dev": "electron . --debug"
   },
   "build": {
     "productName":"Electron-IIROSE",
