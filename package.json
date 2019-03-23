@@ -32,8 +32,11 @@
     "linux": {
       "target": [
         {
-          "target": "AppImage"
-        }
+          "target": "AppImage",
+        },
+		{
+		  "target": "tar.gz"
+		}
       ]
     },
     "mac": {

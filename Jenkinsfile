@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'electron-builder -wl tar.gz'
+                sh 'electron-builder'
             }
          }
     }
@@ -17,6 +17,8 @@ pipeline {
         always{
             archiveArtifacts artifacts: 'build/*.tar.gz', fingerprint: true
             archiveArtifacts artifacts: 'build/*.exe', fingerprint: true
+			archiveArtifacts artifacts: 'build/*.dmg', fingerprint: true
+			archiveArtifacts artifacts: 'build/*.AppImage', fingerprint: true
         }
     }
 }
