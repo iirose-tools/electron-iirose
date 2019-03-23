@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'electron-builder -wl tar.gz'
+                sh 'electron-builder -wl tar.gz --publish never'
                 archiveArtifacts artifacts: 'build/*.tar.gz', fingerprint: true
                 archiveArtifacts artifacts: 'build/*.exe', fingerprint: true
             }
