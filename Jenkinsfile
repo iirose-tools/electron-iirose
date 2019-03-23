@@ -15,9 +15,9 @@ pipeline {
     }
     post{
         always{
-            archiveArtifacts artifacts: 'build/*.tar.gz', fingerprint: true
-            archiveArtifacts artifacts: 'build/*.exe', fingerprint: true
-			archiveArtifacts artifacts: 'build/*.AppImage', fingerprint: true
+            archiveArtifacts artifacts: 'build/*.tar.gz', allowEmptyArchive: true, fingerprint: true
+            archiveArtifacts artifacts: 'build/*.exe', allowEmptyArchive: true, fingerprint: true
+			archiveArtifacts artifacts: 'build/*.AppImage', allowEmptyArchive: true, fingerprint: true
         }
     }
 }
