@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Build') {
             steps {
-                sh 'electron-builder -wl tar.gz --publish never'
+                sh 'electron-builder -wl tar.gz'
             }
          }
     }
