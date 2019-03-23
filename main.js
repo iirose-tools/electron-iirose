@@ -14,6 +14,13 @@ ipc.on('system-type', function(event, data){
     event.sender.send('system-type', sys);
 });
 
+fs.exists("./config.json",(exists)=>{
+	if(!exists){
+		fs.writeFile("./config.json",`{"window":{"w":800,"h":600}}`,(err)=>{})
+		console.log(1)
+	}
+})
+
 let startWindow;
 
 function start(){

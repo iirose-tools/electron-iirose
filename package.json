@@ -8,26 +8,27 @@
     "dev": "electron . --debug"
   },
   "build": {
-    "productName":"Electron-IIROSE",
+    "productName": "Electron-IIROSE",
     "appId": "com.iirose.electron",
-    "copyright":"Theresa",
+    "copyright": "Theresa",
     "directories": {
       "output": "build"
     },
     "win": {
-		  "target": [
-		    {
-		      "target": "nsis"
-		    }
-		  ]
-		},
-		"nsis": {
-			"oneClick": false,
-			"allowElevation": true,
-			"allowToChangeInstallationDirectory": true,
-			"createDesktopShortcut": true,
-			"createStartMenuShortcut": true
-		}
+      "icon": "./icon/256.png",
+      "target": [
+        {
+          "target": "nsis"
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowElevation": true,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    }
   },
   "keywords": [],
   "author": "Theresa",
