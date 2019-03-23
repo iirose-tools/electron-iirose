@@ -1,6 +1,6 @@
 {
   "name": "IIROSE",
-  "version": "0.0.2",
+  "version": "0.0.3-SNAPSHOT",
   "description": "IIROSE",
   "main": "main.js",
   "scripts": {
@@ -28,6 +28,23 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage"
+        }
+      ]
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg"
+        }
+      ]
+    },
+    "dmg": {
+      "title": "${productName} ${version} for Mac"
     }
   },
   "keywords": [],
