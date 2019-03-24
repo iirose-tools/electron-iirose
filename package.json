@@ -33,9 +33,11 @@
   "keywords": [],
   "author": "Theresa",
   "devDependencies": {
-    "electron": "^4.1.0"
+    "electron": "^4.1.0",
+    "request": "^2.88.0"
   },
   "dependencies": {
+    "electron": "^4.1.0",
     "request": "^2.88.0"
   }
 }
