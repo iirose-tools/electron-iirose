@@ -6,37 +6,18 @@ const request = require('request');
 
 let tray = null;
 
-main()
-
-function main(){
-    let s = fsExistsSync('./icon');
-    if(s){
-        if(!fs.existsSync('./icon/128.png')){
-			downloadFile('https://haa.tw/static/iirose/icon/128.png','./icon/128.png');
-		}
-		
-		if(!fs.existsSync('./icon/256.png')){
-			downloadFile('https://haa.tw/static/iirose/icon/256.png','./icon/256.png');
-		}
-
-		if(!fs.existsSync('./icon/512.png')){
-			downloadFile('https://haa.tw/static/iirose/icon/512.png','./icon/512.png');
-		}
-    }
-}
-
-function downloadFile(uri,filename,callback){
-    let stream = fs.createWriteStream(filename);
-    request(uri).pipe(stream).on('close', callback); 
+function downloadFile(uri, filename, callback) {
+	let stream = fs.createWriteStream(filename);
+	request(uri).pipe(stream).on('close', callback);
 }
 
 function fsExistsSync(path) {
-    try{
-        fs.accessSync(path,fs.F_OK);
-    }catch(e){
-        return false;
-    }
-    return true;
+	try {
+		fs.accessSync(path, fs.F_OK);
+	} catch (e) {
+		return false;
+	}
+	return true;
 }
 
 let sys = os.platform();
@@ -70,38 +51,39 @@ function show() {
 }
 
 function start() {
-	// 系统托盘
-	tray = new Tray('./icon/256.png')
-	const contextMenu = Menu.buildFromTemplate([
-		{
-			label: '退出',
-			type: 'normal',
-			click: () => {
-				app.quit();
+	downloadFile('https://haa.tw/static/iirose/icon/256.png', './256.png', () => {
+		tray = new Tray('./256.png');
+		// 系统托盘
+		const contextMenu = Menu.buildFromTemplate([
+			{
+				label: '退出',
+				type: 'normal',
+				click: () => {
+					app.quit();
+				}
+			},
+			{
+				label: '前台显示',
+				type: 'normal',
+				click: () => {
+					show()
+				}
+			},
+			{
+				label: '后台运行',
+				type: 'normal',
+				click: () => {
+					hide()
+				}
 			}
-		},
-		{
-			label: '前台显示',
-			type: 'normal',
-			click: () => {
-				show()
-			}
-		},
-		{
-			label: '后台运行',
-			type: 'normal',
-			click: () => {
-				hide()
-			}
-		}
-	])
-	tray.setToolTip('我正在看着你...')
-	tray.setContextMenu(contextMenu);
+		])
+		tray.setToolTip('我正在看着你...')
+		tray.setContextMenu(contextMenu);
 
-	tray.on('click', () => {
-		startWindow.isVisible() ? win.hide() : win.show()
-	})
-
+		tray.on('click', () => {
+			startWindow.isVisible() ? win.hide() : win.show()
+		})
+	});
 	fs.readFile(`./config.json`, (err, data) => {
 		if (!err) {
 			let obj = JSON.parse(data.toString());
