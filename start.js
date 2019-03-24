@@ -2,28 +2,28 @@ const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
 const fs = require("fs");
 
-setInterval(()=>{
+setInterval(() => {
     let songName = document.getElementById("iframe").contentWindow.document.getElementById("mainFrame").contentWindow.document.getElementById("shareMediaSongName").innerHTML;
     document.getElementById("fun-songName").value = songName;
     mdui.mutation()
-},1000)
+}, 1000)
 
-fs.readFile(`./config.json`,(err,data) => {
-    if(!err){
+fs.readFile(`./config.json`, (err, data) => {
+    if (!err) {
         let obj = JSON.parse(data.toString());
         console.log(obj);
         let w = obj.window.w;
         let h = obj.window.h;
         let r = obj.window.r;
 
-        document.getElementById("iframe").height = 590+(h-700);
+        document.getElementById("iframe").height = 590 + (h - 700);
 
         document.getElementById("config-w").value = w;
         document.getElementById("config-h").value = h;
     }
 });
 
-function saveConfig(){
+function saveConfig() {
     let w = document.getElementById("config-w").value;
     let h = document.getElementById("config-h").value;
     w = Number(w);
@@ -36,14 +36,14 @@ function saveConfig(){
         }
     })
 
-    fs.writeFile("./config.json",data,(err)=>{
-        if(err){
+    fs.writeFile("./config.json", data, (err) => {
+        if (err) {
             mdui.snackbar({
                 message: '保存失败',
                 position: 'right-bottom',
                 timeout: 5000
             });
-        }else{
+        } else {
             mdui.snackbar({
                 message: '保存成功，重启生效',
                 position: 'right-bottom',

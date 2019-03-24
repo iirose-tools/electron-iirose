@@ -1,6 +1,6 @@
 {
   "name": "IIROSE",
-  "version": "0.0.3-SNAPSHOT",
+  "version": "0.0.3",
   "description": "IIROSE",
   "main": "main.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "build": {
     "productName": "Electron-IIROSE",
-    "appId": "com.iirose.electron",
+    "appId": "com.theresa.electron-iirose",
     "copyright": "Theresa",
     "directories": {
       "output": "build"
@@ -28,17 +28,6 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
-    },
-    "linux": {
-	  "category": "Utility",
-      "target": [
-        {
-          "target": "AppImage"
-        },
-		{
-		  "target": "tar.gz"
-		}
-      ]
     }
   },
   "keywords": [],
