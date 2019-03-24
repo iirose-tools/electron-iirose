@@ -2,8 +2,42 @@ const { shell, remote, Menu, Tray, app, BrowserWindow } = require('electron')
 const os = require("os");
 const ipc = require('electron').ipcMain
 const fs = require("fs");
+const request = require('request');
 
 let tray = null;
+
+main()
+
+function main(){
+    let s = fsExistsSync('./icon');
+    if(s){
+        if(!fs.existsSync('./icon/128.png')){
+			downloadFile('https://haa.tw/static/iirose/icon/128.png','./icon/128.png');
+		}
+		
+		if(!fs.existsSync('./icon/256.png')){
+			downloadFile('https://haa.tw/static/iirose/icon/256.png','./icon/256.png');
+		}
+
+		if(!fs.existsSync('./icon/512.png')){
+			downloadFile('https://haa.tw/static/iirose/icon/512.png','./icon/512.png');
+		}
+    }
+}
+
+function downloadFile(uri,filename,callback){
+    let stream = fs.createWriteStream(filename);
+    request(uri).pipe(stream).on('close', callback); 
+}
+
+function fsExistsSync(path) {
+    try{
+        fs.accessSync(path,fs.F_OK);
+    }catch(e){
+        return false;
+    }
+    return true;
+}
 
 let sys = os.platform();
 if (sys.indexOf("win") != -1) {
