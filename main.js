@@ -77,8 +77,7 @@ function start() {
 			label: '退出',
 			type: 'normal',
 			click: () => {
-				var window = remote.getCurrentWindow();
-				window.close();
+				app.quit();
 			}
 		},
 		{
@@ -130,7 +129,7 @@ function start() {
 			});
 
 			startWindow.loadFile("./start.html");
-			startWindow.openDevTools()
+			//startWindow.openDevTools()
 			startWindow.on('closed', function () {
 				startWindow = null
 			})

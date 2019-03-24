@@ -34,5 +34,8 @@
   "author": "Theresa",
   "devDependencies": {
     "electron": "^4.1.0"
+  },
+  "dependencies": {
+    "request": "^2.88.0"
   }
 }
