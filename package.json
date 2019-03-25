@@ -1,6 +1,6 @@
 {
   "name": "IIROSE",
-  "version": "0.1-SNAPSHOT",
+  "version": "0.1-beta",
   "description": "IIROSE",
   "main": "main.js",
   "scripts": {
