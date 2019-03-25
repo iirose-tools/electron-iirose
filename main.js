@@ -116,9 +116,9 @@ function start() {
 			startWindow.on('closed', function () {
 				startWindow = null
 			})
-			
-			startWindow.once('ready-to-show', () => 
-				startWindow.show()
+
+			startWindow.once('ready-to-show', () =>
+				show()
 			})
 
 			startWindow.on('show', () => {
