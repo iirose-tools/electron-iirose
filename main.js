@@ -105,6 +105,7 @@ function start() {
 				fullscreen: false,
 				frame: false,
 				title: "IIROSE For " + sys,
+				show: false,
 				webPreferences: {
 					nodeIntegration: true
 				}
@@ -114,6 +115,10 @@ function start() {
 			//startWindow.openDevTools()
 			startWindow.on('closed', function () {
 				startWindow = null
+			})
+			
+			startWindow.once('ready-to-show', () => 
+				startWindow.show()
 			})
 
 			startWindow.on('show', () => {
