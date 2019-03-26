@@ -117,7 +117,7 @@ function start() {
 				startWindow = null
 			})
 
-			startWindow.once('ready-to-show', () =>
+			startWindow.once('ready-to-show', () => {
 				show()
 			})
 
