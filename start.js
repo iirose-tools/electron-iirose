@@ -5,8 +5,8 @@ const fs = require("fs");
 setInterval(() => {
     let songName = document.getElementById("iframe").contentWindow.document.getElementById("mainFrame").contentWindow.document.getElementById("shareMediaSongName").innerHTML;
     document.getElementById("fun-songName").value = songName;
-    mdui.mutation()
-}, 1000)
+    mdui.mutation();
+}, 1000);
 
 fs.readFile(`./config.json`, (err, data) => {
     if (!err) {
@@ -23,6 +23,10 @@ fs.readFile(`./config.json`, (err, data) => {
     }
 });
 
+function reload() {
+    ipc.send('reload', 1);
+}
+
 function saveConfig() {
     let w = document.getElementById("config-w").value;
     let h = document.getElementById("config-h").value;
@@ -34,7 +38,7 @@ function saveConfig() {
             w: w,
             h: h
         }
-    })
+    });
 
     fs.writeFile("./config.json", data, (err) => {
         if (err) {
@@ -45,12 +49,12 @@ function saveConfig() {
             });
         } else {
             mdui.snackbar({
-                message: '保存成功，重启生效',
+                message: '保存成功，重载生效',
                 position: 'right-bottom',
                 timeout: 5000
             });
         }
-    })
+    });
 }
 
 function close() {
@@ -66,11 +70,11 @@ function min() {
 ipc.once('system-type', function (event, e) {
     let systemType = document.getElementById("system-type");
     systemType.innerHTML = "for " + e;
-})
+});
 
 ipc.send('system-type', 'type');
 mdui.mutation();
 
 function about() {
-    mdui.alert(`<div class="mdui-typo">GitHub: <p>irose-tools/electron-iirose</p></div>`, "关于")
+    mdui.alert(`<div class="mdui-typo">GitHub: <p>irose-tools/electron-iirose</p></div>`, "关于");
 }

@@ -1,6 +1,13 @@
-const { shell, remote, Menu, Tray, app, BrowserWindow } = require('electron')
+const {
+	shell,
+	remote,
+	Menu,
+	Tray,
+	app,
+	BrowserWindow
+} = require('electron');
 const os = require("os");
-const ipc = require('electron').ipcMain
+const ipc = require('electron').ipcMain;
 const fs = require("fs");
 const request = require('request');
 
@@ -33,12 +40,35 @@ ipc.on('system-type', function (event, data) {
 
 fs.exists("./config.json", (exists) => {
 	if (!exists) {
-		fs.writeFile("./config.json", `{"window":{"w":800,"h":600}}`, (err) => { })
-		console.log(1)
+		fs.writeFile("./config.json", `{"window":{"w":800,"h":600}}`, (err) => {});
+		console.log(1);
 	}
-})
+});
 
-let startWindow;
+var startWindow;
+var reloading = false;
+
+ipc.on('reload', function (event, data) {
+	reload();
+});
+
+function reload() {
+	if (reloading) return;
+	reloading = true;
+	reloadOne();
+}
+
+function reloadOne() {
+	if (startWindow) startWindow.close();
+	startWindow = null;
+	if (tray) tray.destroy();
+	tray = null;
+}
+
+function reloadTwo() {
+	start();
+	reloading = false;
+}
 
 function hide() {
 	startWindow.setSkipTaskbar(true);
@@ -51,11 +81,11 @@ function show() {
 }
 
 function start() {
+	console.log("Start window");
 	downloadFile('https://haa.tw/static/iirose/icon/256.png', './256.png', () => {
 		tray = new Tray('./256.png');
 		// 系统托盘
-		const contextMenu = Menu.buildFromTemplate([
-			{
+		const contextMenu = Menu.buildFromTemplate([{
 				label: '退出',
 				type: 'normal',
 				click: () => {
@@ -66,23 +96,30 @@ function start() {
 				label: '前台显示',
 				type: 'normal',
 				click: () => {
-					show()
+					show();
 				}
 			},
 			{
 				label: '后台运行',
 				type: 'normal',
 				click: () => {
-					hide()
+					hide();
+				}
+			},
+			{
+				label: '重载',
+				type: 'normal',
+				click: () => {
+					reload();
 				}
 			}
-		])
-		tray.setToolTip('我正在看着你...')
+		]);
+		tray.setToolTip('我正在看着你...');
 		tray.setContextMenu(contextMenu);
 
 		tray.on('click', () => {
-			startWindow.isVisible() ? win.hide() : win.show()
-		})
+			startWindow.isVisible() ? startWindow.hide() : startWindow.show();
+		});
 	});
 	fs.readFile(`./config.json`, (err, data) => {
 		if (!err) {
@@ -114,22 +151,27 @@ function start() {
 			startWindow.loadFile("./start.html");
 			//startWindow.openDevTools()
 			startWindow.on('closed', function () {
-				startWindow = null
-			})
+				console.log("Window closed");
+				startWindow = null;
+			});
 
 			startWindow.once('ready-to-show', () => {
-				startWindow.show()
-			})
+				console.log("Window ready to show");
+				startWindow.show();
+			});
 
 			startWindow.on('show', () => {
-				tray.setHighlightMode('always')
-			})
+				console.log("Window show");
+				// tray.setHighlightMode('always')
+			});
 
 			startWindow.on('hide', () => {
-				tray.setHighlightMode('never')
-			})
+				console.log("Window hide");
+				// tray.setHighlightMode('never')
+			});
 
 			startWindow.webContents.on('new-window', function (e, url) {
+				console.log("Window open external link");
 				e.preventDefault();
 				shell.openExternal(url);
 			});
@@ -139,16 +181,17 @@ function start() {
 	});
 }
 
-app.on('ready', start)
+app.on('ready', start);
 
 app.on('window-all-closed', function () {
-	if (process.platform !== 'darwin') {
-		app.quit()
+	if (reloading) reloadTwo();
+	else if (process.platform !== 'darwin') {
+		app.quit();
 	}
-})
+});
 
 app.on('activate', function () {
 	if (startWindow === null) {
 		start();
 	}
-})
+});

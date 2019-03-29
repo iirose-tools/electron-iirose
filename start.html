@@ -27,7 +27,9 @@
             -webkit-app-region: drag;
         }
 
-        .menu button,li,ul {
+        .menu button,
+        li,
+        ul {
             -webkit-app-region: no-drag;
         }
 
@@ -35,7 +37,7 @@
             -webkit-app-region: no-drag;
         }
 
-        .tabs{
+        .tabs {
             width: 70%;
             margin-left: 15%;
             margin-right: 15%;
@@ -46,7 +48,7 @@
             border-radius: 5px;
         }
 
-        #iirose{
+        #iirose {
             width: 100% !important;
             margin: 0px !important;
             padding: 0px !important;
@@ -54,7 +56,8 @@
     </style>
     <div class="mdui-appbar menu mdui-shadow-3" id="menu">
         <div class="mdui-toolbar mdui-color-indigo">
-            <button class="mdui-btn mdui-btn-icon" mdui-menu="{target: '#window-menu'}"><i class="mdui-icon material-icons">menu</i></button>
+            <button class="mdui-btn mdui-btn-icon" mdui-menu="{target: '#window-menu'}"><i
+                    class="mdui-icon material-icons">menu</i></button>
             <p href="javascript:;" class="mdui-typo-headline">IIROSE</p>
             <p class="mdui-typo-title" id="system-type">for PC</p>
 
@@ -94,7 +97,10 @@
                 <label class="mdui-textfield-label">窗口高度</label>
                 <input class="mdui-textfield-input" type="text" id="config-h" />
             </div>
-            <button onclick="saveConfig()" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-center">确定</button>
+            <button onclick="saveConfig()"
+                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-center">确定</button>
+            <button onclick="reload()"
+                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-center">重载</button>
         </div>
     </div>
     <div id="functions" class="mdui-p-a-2">
@@ -109,7 +115,7 @@
     <div id="about" class="mdui-p-a-2 mdui-typo">
         <ul>
             <li>GitHub: iirose-tools/electron-iirose</li>
-            <li>Version: 0.0.3</li>
+            <li>Version: 0.1-beta</li>
         </ul>
     </div>
 </body>
