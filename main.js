@@ -10,6 +10,7 @@ const os = require("os");
 const ipc = require('electron').ipcMain;
 const fs = require("fs");
 const request = require('request');
+const version = app.getVersion();
 
 let tray = null;
 
@@ -38,6 +39,10 @@ ipc.on('system-type', function (event, data) {
 	event.sender.send('system-type', sys);
 });
 
+ipc.on('version', (event, data) => {
+	event.returnValue = version;
+})
+
 fs.exists("./config.json", (exists) => {
 	if (!exists) {
 		fs.writeFile("./config.json", `{"window":{"w":800,"h":600}}`, (err) => {});
@@ -47,9 +52,26 @@ fs.exists("./config.json", (exists) => {
 
 var startWindow;
 var reloading = false;
+var ses;
 
 ipc.on('reload', function (event, data) {
 	reload();
+});
+
+ipc.on('session', function (event, data) {
+	try {
+		if (data == 1) ses.getCacheSize(function (size) {
+			event.returnValue = size / 1024 / 1024;
+		});
+		if (data == 2) ses.clearCache(function () {
+			event.returnValue = 1;
+		});
+		if (data == 3)
+			event.returnValue = ses.clearStorageData();
+	} catch (event) {
+		console.log("In main thread:");
+		console.log(event);
+	}
 });
 
 function reload() {
@@ -63,6 +85,7 @@ function reloadOne() {
 	startWindow = null;
 	if (tray) tray.destroy();
 	tray = null;
+	ses = null;
 }
 
 function reloadTwo() {
@@ -138,7 +161,6 @@ function start() {
 			startWindow = new BrowserWindow({
 				width: w,
 				height: h,
-				resizable: false,
 				fullscreen: false,
 				frame: false,
 				title: "IIROSE For " + sys,
@@ -147,6 +169,8 @@ function start() {
 					nodeIntegration: true
 				}
 			});
+
+			ses = startWindow.webContents.session;
 
 			startWindow.loadFile("./start.html");
 			//startWindow.openDevTools()
@@ -170,11 +194,29 @@ function start() {
 				// tray.setHighlightMode('never')
 			});
 
+			startWindow.on('resize', () => {
+				let returnVal = Array();
+				let windowSize = startWindow.getSize();
+				returnVal.push(windowSize[0]);
+				returnVal.push(windowSize[1]);
+				returnVal.push(startWindow.isMaximized());
+				startWindow.webContents.send('resize', returnVal);
+			});
+
 			startWindow.webContents.on('new-window', function (e, url) {
 				console.log("Window open external link");
 				e.preventDefault();
 				shell.openExternal(url);
 			});
+
+			setTimeout(() => {
+				let returnVal = Array();
+				let windowSize = startWindow.getSize();
+				returnVal.push(windowSize[0]);
+				returnVal.push(windowSize[1]);
+				returnVal.push(startWindow.isMaximized());
+				startWindow.webContents.send('resize', returnVal);
+			}, 1000);
 		} else {
 
 		}

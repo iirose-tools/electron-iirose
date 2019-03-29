@@ -60,6 +60,11 @@
                     class="mdui-icon material-icons">menu</i></button>
             <p href="javascript:;" class="mdui-typo-headline">IIROSE</p>
             <p class="mdui-typo-title" id="system-type">for PC</p>
+            <p class="mdui-typo-title">
+                <script>
+                    document.write(ipc.sendSync('version', 1));
+                </script>
+            </p>
 
             <!-- 菜单 -->
             <ul class="mdui-menu mdui-menu-cascade" id="window-menu">
@@ -89,24 +94,35 @@
     <div id="setting" class="mdui-p-a-2">
         <div class="tabs mdui-shadow-1 mdui-hoverable mdui-typo">
             <h1>窗口设置</h1>
-            <div class="mdui-textfield mdui-textfield-floating-label">
+            <div class="mdui-textfield">
                 <label class="mdui-textfield-label">窗口宽度</label>
                 <input class="mdui-textfield-input" type="text" id="config-w" />
             </div>
-            <div class="mdui-textfield mdui-textfield-floating-label">
+            <div class="mdui-textfield">
                 <label class="mdui-textfield-label">窗口高度</label>
                 <input class="mdui-textfield-input" type="text" id="config-h" />
             </div>
-            <button onclick="saveConfig()"
-                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-center">确定</button>
-            <button onclick="reload()"
-                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent mdui-center">重载</button>
+            <h1>高级设置</h1>
+            <button onclick="reload()" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">重载窗口</button>
+            <button onclick="location.reload()"
+                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">刷新页面</button>
+            <div class="mdui-textfield">
+                <label class="mdui-textfield-label">缓存大小 (MB)</label>
+                <input class="mdui-textfield-input" type="text" id="cacheSize" />
+            </div>
+            <br />
+            <center>
+                <button onclick="ipc.sendSync('session', 2);reload()"
+                    class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">清除缓存并重载窗口</button>
+                <button onclick="ipc.sendSync('session', 3);reload()"
+                    class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">重置并重载窗口</button>
+            </center>
         </div>
     </div>
     <div id="functions" class="mdui-p-a-2">
         <div class="tabs mdui-shadow-1 mdui-hoverable mdui-typo">
             <h1>IIROSE</h1>
-            <div class="mdui-textfield mdui-textfield-floating-label">
+            <div class="mdui-textfield">
                 <label class="mdui-textfield-label">歌名</label>
                 <input class="mdui-textfield-input" type="text" id="fun-songName" />
             </div>
@@ -115,7 +131,10 @@
     <div id="about" class="mdui-p-a-2 mdui-typo">
         <ul>
             <li>GitHub: iirose-tools/electron-iirose</li>
-            <li>Version: 0.1-beta</li>
+            <li>Version: <script>
+                    document.write(ipc.sendSync('version', 1));
+                </script>
+            </li>
         </ul>
     </div>
 </body>

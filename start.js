@@ -8,6 +8,30 @@ setInterval(() => {
     mdui.mutation();
 }, 1000);
 
+setTimeout(() => {
+    setInterval(() => {
+        let cacheSize = ipc.sendSync('session', 1);
+        document.getElementById("cacheSize").value = cacheSize;
+        document.getElementById("iframe").height = 590 + (hei - 700);
+        mdui.mutation();
+    }, 500);
+}, 1000);
+
+setInterval(() => {
+    saveConfig();
+}, 10000);
+
+var hei;
+
+ipc.on('resize', function (event, data) {
+    if (!data[2]) {
+        document.getElementById("config-w").value = data[0];
+        document.getElementById("config-h").value = data[1];
+    }
+    document.getElementById("iframe").height = 590 + (data[1] - 700);
+    hei = data[1];
+});
+
 fs.readFile(`./config.json`, (err, data) => {
     if (!err) {
         let obj = JSON.parse(data.toString());
@@ -16,7 +40,7 @@ fs.readFile(`./config.json`, (err, data) => {
         let h = obj.window.h;
         let r = obj.window.r;
 
-        document.getElementById("iframe").height = 590 + (h - 700);
+        hei = h;
 
         document.getElementById("config-w").value = w;
         document.getElementById("config-h").value = h;
@@ -33,6 +57,8 @@ function saveConfig() {
     w = Number(w);
     h = Number(h);
 
+    document.getElementById("iframe").height = 590 + (h - 700);
+
     let data = JSON.stringify({
         window: {
             w: w,
@@ -47,13 +73,7 @@ function saveConfig() {
                 position: 'right-bottom',
                 timeout: 5000
             });
-        } else {
-            mdui.snackbar({
-                message: '保存成功，重载生效',
-                position: 'right-bottom',
-                timeout: 5000
-            });
-        }
+        } else {}
     });
 }
 
