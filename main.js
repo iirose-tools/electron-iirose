@@ -177,7 +177,7 @@ function start() {
 			if (mode == 0) startWindow.loadFile("./start.html");
 			else if (mode == 1) startWindow.loadFile("./advanced.html");
 			else startWindow.loadFile("./start.html");
-			startWindow.openDevTools();
+			// startWindow.openDevTools();
 			startWindow.on('closed', function () {
 				console.log("Window closed");
 				startWindow = null;
