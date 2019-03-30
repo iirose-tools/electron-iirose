@@ -8,7 +8,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./mdui/css/mdui.min.css">
     <script src="./mdui/js/mdui.min.js"></script>
-    <script src="./start.js"></script>
+    <script>
+        window.$ = window.jQuery = require('jquery');
+    </script>
+    <script src="./md5.js"></script>
+    <script src="./advanced.js"></script>
+    <script src="./communication.js"></script>
 </head>
 
 <body>
@@ -16,11 +21,7 @@
         body {
             margin: 0px;
             padding: 0px;
-            overflow: hidden;
-        }
-
-        iframe {
-            width: 100%;
+            overflow: auto;
         }
 
         .menu {
@@ -46,12 +47,6 @@
             padding-right: 15px;
             padding-bottom: 20px;
             border-radius: 5px;
-        }
-
-        #iirose {
-            width: 100% !important;
-            margin: 0px !important;
-            padding: 0px !important;
         }
     </style>
     <div class="mdui-appbar menu mdui-shadow-3" id="menu">
@@ -82,14 +77,22 @@
             </ul>
         </div>
         <div class="mdui-tab mdui-tab-centered mdui-color-indigo" mdui-tab>
-            <a href="#iirose" class="mdui-ripple">IIROSE</a>
+            <a href="#main" class="mdui-ripple">IIROSE</a>
             <a href="#setting" class="mdui-ripple">设置</a>
-            <a href="#functions" class="mdui-ripple">功能</a>
+            <a href="#user" class="mdui-ripple">登陆</a>
+            <a href="#notification" class="mdui-ripple">通知设置</a>
             <a href="#about" class="mdui-ripple">关于</a>
         </div>
     </div>
-    <div id="iirose" class="mdui-p-a-2">
-        <iframe src="https://iirose.com/" frameborder="0" id="iframe"></iframe>
+    <div id="main" class="mdui-p-a-2">
+        <textarea style="width:100%;" rows="20" placeholder="Message" id="messages" readonly></textarea>
+        <br />
+        <div class="mdui-textfield">
+            <input class="mdui-textfield-input" type="text" placeholder="发送消息" id="sendmessage" />
+        </div>
+        <div class="mdui-textfield">
+            <input class="mdui-textfield-input" type="text" placeholder="发射弹幕" id="senddanmu" />
+        </div>
     </div>
     <div id="setting" class="mdui-p-a-2">
         <div class="tabs mdui-shadow-1 mdui-hoverable mdui-typo">
@@ -106,8 +109,8 @@
             <button onclick="reload()" class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">重载窗口</button>
             <button onclick="location.reload()"
                 class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">刷新页面</button>
-            <button onclick="switchWindow(1)"
-                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">切换至advanced模式</button>
+            <button onclick="switchWindow(0)"
+                class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">切换至normal模式</button>
             <div class="mdui-textfield">
                 <label class="mdui-textfield-label">缓存大小 (MB)</label>
                 <input class="mdui-textfield-input" type="text" id="cacheSize" />
@@ -121,13 +124,28 @@
             </center>
         </div>
     </div>
-    <div id="functions" class="mdui-p-a-2">
+    <div id="user" class="mdui-p-a-2">
         <div class="tabs mdui-shadow-1 mdui-hoverable mdui-typo">
-            <h1>IIROSE</h1>
+            <h1>Account</h1>
             <div class="mdui-textfield">
-                <label class="mdui-textfield-label">歌名</label>
-                <input class="mdui-textfield-input" type="text" id="fun-songName" />
+                <label class="mdui-textfield-label">User Name</label>
+                <input class="mdui-textfield-input" id="login" type="text" />
             </div>
+            <br />
+            <div class="mdui-textfield">
+                <label class="mdui-textfield-label">Password</label>
+                <input class="mdui-textfield-input" id="password" type="password" />
+            </div>
+            <br />
+            <div class="mdui-textfield">
+                <label class="mdui-textfield-label">Roomid</label>
+                <input class="mdui-textfield-input" id="roomid" type="text" />
+            </div>
+            <br />
+            <center>
+                <button onclick="login()"
+                    class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">保存登录信息</button>
+            </center>
         </div>
     </div>
     <div id="about" class="mdui-p-a-2 mdui-typo">

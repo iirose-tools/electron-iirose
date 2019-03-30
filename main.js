@@ -11,6 +11,7 @@ const ipc = require('electron').ipcMain;
 const fs = require("fs");
 const request = require('request');
 const version = app.getVersion();
+// const iirose_ws = require('./websocket');
 
 let tray = null;
 
@@ -41,7 +42,7 @@ ipc.on('system-type', function (event, data) {
 
 ipc.on('version', (event, data) => {
 	event.returnValue = version;
-})
+});
 
 fs.exists("./config.json", (exists) => {
 	if (!exists) {
@@ -149,6 +150,7 @@ function start() {
 			let obj = JSON.parse(data.toString());
 			let w = obj.window.w;
 			let h = obj.window.h;
+			let mode = obj.mode;
 
 			if (w < 800) {
 				w = 800;
@@ -172,8 +174,10 @@ function start() {
 
 			ses = startWindow.webContents.session;
 
-			startWindow.loadFile("./start.html");
-			//startWindow.openDevTools()
+			if (mode == 0) startWindow.loadFile("./start.html");
+			else if (mode == 1) startWindow.loadFile("./advanced.html");
+			else startWindow.loadFile("./start.html");
+			startWindow.openDevTools();
 			startWindow.on('closed', function () {
 				console.log("Window closed");
 				startWindow = null;

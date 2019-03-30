@@ -2,17 +2,10 @@ const remote = require('electron').remote;
 const ipc = require('electron').ipcRenderer;
 const fs = require("fs");
 
-setInterval(() => {
-    let songName = document.getElementById("iframe").contentWindow.document.getElementById("mainFrame").contentWindow.document.getElementById("shareMediaSongName").innerHTML;
-    document.getElementById("fun-songName").value = songName;
-    mdui.mutation();
-}, 1000);
-
 setTimeout(() => {
     setInterval(() => {
         let cacheSize = ipc.sendSync('session', 1);
         document.getElementById("cacheSize").value = cacheSize;
-        document.getElementById("iframe").height = 590 + (hei - 700);
         mdui.mutation();
     }, 500);
 }, 1000);
@@ -29,7 +22,6 @@ ipc.on('resize', function (event, data) {
         document.getElementById("config-w").value = data[0];
         document.getElementById("config-h").value = data[1];
     }
-    document.getElementById("iframe").height = 590 + (data[1] - 700);
     hei = data[1];
 });
 
@@ -48,6 +40,34 @@ fs.readFile(`./config.json`, (err, data) => {
     }
 });
 
+fs.readFile('login.json', (err, data) => {
+    if (!err) {
+        let j = JSON.parse(data);
+        let login = j.login;
+        let roomid = j.roomid;
+        document.getElementById("login").value = login;
+        document.getElementById("roomid").value = roomid;
+    }
+});
+
+setTimeout(() => {
+    document.getElementById("sendmessage").addEventListener('keypress', function (event) {
+        console.log(event);
+        if (event.keyCode == 13) {
+            sendMsg(document.getElementById("sendmessage").value);
+            document.getElementById("sendmessage").value = "";
+        }
+    });
+    document.getElementById("senddanmu").addEventListener('keypress', function (event) {
+        console.log(event);
+        if (event.keyCode == 13) {
+            sendDanmu(document.getElementById("senddanmu").value);
+            document.getElementById("senddanmu").value = "";
+        }
+    });
+}, 1000);
+
+
 function reload() {
     ipc.send('reload', 1);
 }
@@ -58,13 +78,23 @@ function switchWindow(name) {
     reload();
 }
 
+function login() {
+    let login = document.getElementById("login").value;
+    let password = hex_md5(document.getElementById("password").value);
+    let roomid = document.getElementById("roomid").value;
+    fs.writeFileSync("login.json", JSON.stringify({
+        login: login,
+        password: password,
+        roomid: roomid
+    }));
+}
+
 function saveConfig(isSync) {
     let w = document.getElementById("config-w").value;
     let h = document.getElementById("config-h").value;
     w = Number(w);
     h = Number(h);
 
-    document.getElementById("iframe").height = 590 + (h - 700);
     let data = JSON.stringify({
         window: {
             w: w,
@@ -96,12 +126,6 @@ function min() {
     window.minimize();
 }
 
-ipc.once('system-type', function (event, e) {
-    let systemType = document.getElementById("system-type");
-    systemType.innerHTML = "for " + e;
-});
-
-ipc.send('system-type', 'type');
 mdui.mutation();
 
 function about() {
