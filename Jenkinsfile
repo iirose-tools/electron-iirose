@@ -12,7 +12,7 @@ pipeline {
                 sh 'npm install'
                 sh 'cd iirose-bot-ts'
                 sh 'npm install'
-                sh 'tsc'
+                sh 'tsc --build tsconfig.json || true'
 		sh 'cd ..'
                 sh 'electron-builder -lw'
             }
