@@ -38,7 +38,6 @@
   "dependencies": {
     "electron-notification-shim": "^1.1.0",
     "html-entities": "^1.2.1",
-    "iirose-bot": "file:iirose-bot-ts",
     "jquery": "^3.3.1",
     "moment": "^2.24.0",
     "pako": "^1.0.10",
