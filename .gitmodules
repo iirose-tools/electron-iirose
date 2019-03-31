@@ -1,0 +1,3 @@
+[submodule "iirose-bot-ts"]
+	path = iirose-bot-ts
+	url = ./iirose-bot-ts/
