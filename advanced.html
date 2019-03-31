@@ -13,7 +13,7 @@
     </script>
     <script src="./md5.js"></script>
     <script src="./advanced.js"></script>
-    <script src="./communication.js"></script>
+    <script src="./communication.new.js"></script>
 </head>
 
 <body>
@@ -80,7 +80,7 @@
             <a href="#main" class="mdui-ripple">IIROSE</a>
             <a href="#setting" class="mdui-ripple">设置</a>
             <a href="#user" class="mdui-ripple">登陆</a>
-            <a href="#notification" class="mdui-ripple">通知设置</a>
+            <a href="#room" class="mdui-ripple">切换房间</a>
             <a href="#about" class="mdui-ripple">关于</a>
         </div>
     </div>
@@ -143,10 +143,14 @@
             </div>
             <br />
             <center>
-                <button onclick="login()"
+                <button onclick="savelogin()"
                     class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-pink-accent">保存登录信息</button>
             </center>
         </div>
+    </div>
+    <div id="room" class="mdui-p-a-2 mdui-typo">
+        <h1>切换房间</h1>
+        <p id="rooms">等待房间数据...</p>
     </div>
     <div id="about" class="mdui-p-a-2 mdui-typo">
         <ul>

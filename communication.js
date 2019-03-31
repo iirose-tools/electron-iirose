@@ -1,9 +1,6 @@
 const Entities = require('html-entities').AllHtmlEntities;
 const entities = new Entities();
-const request = require('request');
 const sd = require('silly-datetime');
-const readline = require('readline');
-const moment = require('moment');
 
 function Logger(msg) {
     var time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
@@ -119,6 +116,9 @@ function mailBox(message) {
 function onDanmu(message) {
     let messageArray = message.split('>');
     Logger(`[弹幕] ${messageArray[0].substr(1)}说：${messageArray[1]}`);
+    let notify = new Notification('[Electron-IIROSE] 弹幕消息', {
+        body: '${messageArray[0].substr(1)}说：\n${messageArray[1]}'
+    });
 }
 
 function publicMessage(message) {

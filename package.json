@@ -36,13 +36,14 @@
     "electron": "^4.1.0"
   },
   "dependencies": {
-    "request": "^2.88.0",
     "electron-notification-shim": "^1.1.0",
-    "pako": "^1.0.10",
-    "ws": "^6.2.1",
     "html-entities": "^1.2.1",
-    "silly-datetime": "^0.1.2",
+    "iirose-bot": "file:iirose-bot-ts",
+    "jquery": "^3.3.1",
     "moment": "^2.24.0",
-    "jquery": "^3.3.1"
+    "pako": "^1.0.10",
+    "request": "^2.88.0",
+    "silly-datetime": "^0.1.2",
+    "ws": "^6.2.1"
   }
 }

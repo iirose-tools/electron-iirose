@@ -78,7 +78,7 @@ function switchWindow(name) {
     reload();
 }
 
-function login() {
+function savelogin() {
     let login = document.getElementById("login").value;
     let password = hex_md5(document.getElementById("password").value);
     let roomid = document.getElementById("roomid").value;
