@@ -5,6 +5,8 @@ pipeline {
         stage('Pre-Build'){
             steps {
                 sh 'rm -rf ./build || true'
+                sh 'git submodule init'
+                sh 'git submodule update'
             }
         }
         stage('Build') {
