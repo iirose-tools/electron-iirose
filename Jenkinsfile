@@ -10,6 +10,10 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'cd iirose-bot-ts'
+                sh 'npm install'
+                sh 'tsc'
+		sh 'cd ..'
                 sh 'electron-builder -lw'
             }
          }
