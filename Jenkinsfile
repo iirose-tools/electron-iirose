@@ -5,11 +5,14 @@ pipeline {
         stage('Pre-Build'){
             steps {
                 sh 'rm -rf ./build || true'
+                sh 'git submodule init'
+                sh 'git submodule update'
             }
         }
         stage('Build') {
             steps {
                 sh 'npm install'
+                sh 'cd iirose-bot-ts && npm install && (tsc --build tsconfig.json || true)'
                 sh 'electron-builder -lw'
             }
          }
