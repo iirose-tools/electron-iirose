@@ -106,45 +106,43 @@ function show() {
 
 function start() {
 	console.log("Start window");
-	downloadFile('https://haa.tw/static/iirose/icon/256.png', './256.png', () => {
-		tray = new Tray('./256.png');
-		// 系统托盘
-		const contextMenu = Menu.buildFromTemplate([{
-				label: '退出',
-				type: 'normal',
-				click: () => {
-					app.quit();
-				}
-			},
-			{
-				label: '前台显示',
-				type: 'normal',
-				click: () => {
-					show();
-				}
-			},
-			{
-				label: '后台运行',
-				type: 'normal',
-				click: () => {
-					hide();
-				}
-			},
-			{
-				label: '重载',
-				type: 'normal',
-				click: () => {
-					reload();
-				}
+	tray = new Tray('./256.png');
+	// 系统托盘
+	const contextMenu = Menu.buildFromTemplate([{
+			label: '退出',
+			type: 'normal',
+			click: () => {
+				app.quit();
 			}
-		]);
-		tray.setToolTip('我正在看着你...');
-		tray.setContextMenu(contextMenu);
-
-		tray.on('click', () => {
-			startWindow.isVisible() ? startWindow.hide() : startWindow.show();
-		});
+		},
+		{
+			label: '前台显示',
+			type: 'normal',
+			click: () => {
+				show();
+			}
+		},
+		{
+			label: '后台运行',
+			type: 'normal',
+			click: () => {
+				hide();
+			}
+		},
+		{
+			label: '重载',
+			type: 'normal',
+			click: () => {
+				reload();
+			}
+		}
+	]);
+	tray.setToolTip('我正在看着你...');
+	tray.setContextMenu(contextMenu);
+	tray.on('click', () => {
+		startWindow.isVisible() ? startWindow.hide() : startWindow.show();
 	});
+
 	fs.readFile(`./config.json`, (err, data) => {
 		if (!err) {
 			let obj = JSON.parse(data.toString());
@@ -167,6 +165,7 @@ function start() {
 				frame: false,
 				title: "IIROSE For " + sys,
 				show: false,
+				icon: "./256.png",
 				webPreferences: {
 					nodeIntegration: true
 				}
@@ -177,7 +176,7 @@ function start() {
 			if (mode == 0) startWindow.loadFile("./start.html");
 			else if (mode == 1) startWindow.loadFile("./advanced.html");
 			else startWindow.loadFile("./start.html");
-			startWindow.openDevTools();
+			// startWindow.openDevTools();
 			startWindow.on('closed', function () {
 				console.log("Window closed");
 				startWindow = null;
