@@ -65,7 +65,7 @@ const start = async () => {
         content: msg,
         color: connection.color
     }));
-    connection.
+
 
     function printMessage(msg) {
         var time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss');

@@ -15,12 +15,10 @@
       "output": "build"
     },
     "win": {
-      "icon": "./icon/256.png",
-      "target": [
-        {
-          "target": "nsis"
-        }
-      ]
+      "icon": "./256.png",
+      "target": [{
+        "target": "nsis"
+      }]
     },
     "nsis": {
       "oneClick": false,
@@ -28,6 +26,16 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true
+    },
+    "linux": {
+      "category": "Utility",
+      "target": [{
+          "target": "AppImage"
+        },
+        {
+          "target": "tar.gz"
+        }
+      ]
     }
   },
   "keywords": [],
